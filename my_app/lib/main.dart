@@ -39,6 +39,12 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
     return Scaffold(
       appBar: AppBar(
         title: Text('TableCalendar - Basics'),
+        actions: <Widget>[
+          // Add 3 lines from here...
+          new IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: addNew), //list icon to push next page
+        ], // ... to here.
       ),
       body: TableCalendar(
         firstDay: DateTime.utc(2022, 10, 1),
@@ -77,4 +83,6 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
       ),
     );
   }
+
+  void addNew() {}
 }
