@@ -34,19 +34,60 @@ class AddPage extends StatefulWidget {
 }
 
 class AddPageState extends State<AddPage> {
+  late String text;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Record a New Exercise"),
-      ),
-      /* body: Center(
+        appBar: AppBar(
+          title: Text("Record a New Exercise"),
+        ),
+        body: Center(
+            child: Column(
+          children: [
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                // <-- Icon
+                Icons.search,
+                size: 24.0,
+              ),
+              label: Text('Choose a type'), // <-- Text
+            ),
+            SizedBox(
+              height: 20, // <-- SEE HERE
+            ),
+            SizedBox(
+              // <-- SEE HERE
+              width: 200,
+              child: TextField(
+                decoration: InputDecoration(
+                  labelText: 'Enter time (minutes)',
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 20, // <-- SEE HERE
+            ),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: Icon(
+                // <-- Icon
+                Icons.calculate,
+                size: 24.0,
+              ),
+              label: Text('Click to calculate'), // <-- Text
+            ),
+          ],
+        ))
+        /* body: Center(
             child: ElevatedButton(
                 onPressed: () {
                   Navigator.pushNamed(context, 'third');
                 },
                 child: Text('Go forward!')))*/
-    );
+        );
   }
 }
 
