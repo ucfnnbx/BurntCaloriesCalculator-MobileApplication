@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'dart:convert' as convert;
+import 'package:http/http.dart' as http;
+import 'dart:io';
+
+import 'dart:convert';
+import 'dart:io';
+import 'dart:async';
 
 //import '../utils.dart';
 
@@ -23,7 +30,10 @@ class MyApp extends StatelessWidget {
         routes: {
           'add': (context) {
             return AddPage();
-          }
+          },
+          // 'list': (context) {
+          //  return
+          //}
         });
   }
 }
@@ -46,9 +56,12 @@ class AddPageState extends State<AddPage> {
             child: Column(
           children: [
             ElevatedButton.icon(
-              onPressed: () {},
+              //button 1: search API list
+              onPressed: () {
+                navigateAndDisplaySelection(context);
+                //print('Good');
+              },
               icon: Icon(
-                // <-- Icon
                 Icons.search,
                 size: 24.0,
               ),
@@ -61,19 +74,24 @@ class AddPageState extends State<AddPage> {
               // <-- SEE HERE
               width: 200,
               child: TextField(
-                decoration: InputDecoration(
-                  labelText: 'Enter time (minutes)',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+                  decoration: InputDecoration(
+                    labelText: 'Enter time (minutes)',
+                    border: OutlineInputBorder(),
+                  ),
+                  onSubmitted: (String value) {
+                    setState(() {
+                      text = value;
+                      print(text);
+                    });
+                  }),
             ),
             SizedBox(
               height: 20, // <-- SEE HERE
             ),
             ElevatedButton.icon(
+              //button 2: receive API response
               onPressed: () {},
               icon: Icon(
-                // <-- Icon
                 Icons.calculate,
                 size: 24.0,
               ),
@@ -88,6 +106,106 @@ class AddPageState extends State<AddPage> {
                 },
                 child: Text('Go forward!')))*/
         );
+  }
+
+  void navigateAndDisplaySelection(BuildContext context) async {
+    String result = await Navigator.push(
+        context, MaterialPageRoute(builder: (context) => ScreenList()));
+    print(result);
+  }
+}
+
+/*class ScreenTwo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pick an option'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'Yes!');
+                  },
+                  child: Text('Yes!')),
+            ),
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context, 'No.');
+                  },
+                  child: Text('No')),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}*/
+
+class ScreenList extends StatefulWidget {
+  @override
+  State<ScreenList> createState() => ScreenListState();
+}
+
+class ScreenListState extends State<ScreenList> {
+  late List<String> books;
+
+  void initState() {
+    super.initState();
+    books = [];
+    getExercises();
+  }
+
+  void updateList(String book) {
+    setState(() {
+      books.add(book);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Choose an Exercise"),
+        ),
+        body: ListView.builder(
+          itemCount: books.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text(books[index]),
+            );
+          },
+        ));
+  }
+
+  Future<void> getExercises() async {
+    final url =
+        Uri.parse('https://api.api-ninjas.com/v1/caloriesburnedactivities');
+    final response = await http.get(url, headers: {
+      //HttpHeaders.authorizationHeader:
+      "X-Api-Key": 'uRjfZZXLL9spD046C1KZxI30ZaI3CFESdPORSuRp'
+    });
+    if (response.statusCode == 200) {
+      final jsonResponse = convert.jsonDecode(response.body);
+      final activities = jsonResponse['activities'];
+      for (int i = 0; i < activities.length; i++) {
+        try {
+          String title = activities[i];
+          updateList(title);
+        } catch (e) {
+          print('Exception thrown: $e');
+        }
+      }
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
   }
 }
 
