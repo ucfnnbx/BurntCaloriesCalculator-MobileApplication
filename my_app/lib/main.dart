@@ -14,22 +14,48 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-      //title: 'Startup Name Generato',
-      theme: new ThemeData(
-        // Add the 3 lines from here...
-        primaryColor: Colors.white,
-      ), // ... to here.
-      home: new TableBasicsExample(),
+        //title: 'Startup Name Generato',
+        theme: new ThemeData(
+          // Add the 3 lines from here...
+          primaryColor: Colors.white,
+        ), // ... to here.
+        home: new TableBasicsExample(),
+        routes: {
+          'add': (context) {
+            return AddPage();
+          }
+        });
+  }
+}
+
+class AddPage extends StatefulWidget {
+  @override
+  State<AddPage> createState() => AddPageState();
+}
+
+class AddPageState extends State<AddPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Record a New Exercise"),
+      ),
+      /* body: Center(
+            child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, 'third');
+                },
+                child: Text('Go forward!')))*/
     );
   }
 }
 
 class TableBasicsExample extends StatefulWidget {
   @override
-  _TableBasicsExampleState createState() => _TableBasicsExampleState();
+  TableBasicsExampleState createState() => TableBasicsExampleState();
 }
 
-class _TableBasicsExampleState extends State<TableBasicsExample> {
+class TableBasicsExampleState extends State<TableBasicsExample> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
@@ -42,8 +68,12 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
         actions: <Widget>[
           // Add 3 lines from here...
           new IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: addNew), //list icon to push next page
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.pushNamed(context, 'add');
+            },
+          ),
+          //onPressed: addNew), //list icon to push next page
         ], // ... to here.
       ),
       body: TableCalendar(
@@ -84,5 +114,35 @@ class _TableBasicsExampleState extends State<TableBasicsExample> {
     );
   }
 
-  void addNew() {}
+/*  void addNew() {
+    Navigator.of(context).push(
+      new MaterialPageRoute<void>(
+        // Add 20 lines from here...
+        builder: (BuildContext context) {
+          final Iterable<ListTile> tiles = _saved.map(
+            (WordPair pair) {
+              return new ListTile(
+                title: new Text(
+                  pair.asPascalCase,
+                  style: _biggerFont,
+                ),
+              );
+            },
+          );
+          final List<Widget> divided = ListTile.divideTiles(
+            context: context,
+            tiles: tiles,
+          ).toList();
+
+          return new Scaffold(
+            // Add 6 lines from here...
+            appBar: new AppBar(
+              title: const Text('Saved Suggestions'),
+            ),
+            body: new ListView(children: divided),
+          ); // ... to here.
+        },
+      ), // ... to here.
+    );
+  }*/
 }
