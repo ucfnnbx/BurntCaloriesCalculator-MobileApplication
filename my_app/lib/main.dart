@@ -98,14 +98,7 @@ class AddPageState extends State<AddPage> {
               label: Text('Click to calculate'), // <-- Text
             ),
           ],
-        ))
-        /* body: Center(
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, 'third');
-                },
-                child: Text('Go forward!')))*/
-        );
+        )));
   }
 
   void navigateAndDisplaySelection(BuildContext context) async {
@@ -114,40 +107,6 @@ class AddPageState extends State<AddPage> {
     print(result);
   }
 }
-
-/*class ScreenTwo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pick an option'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context, 'Yes!');
-                  },
-                  child: Text('Yes!')),
-            ),
-            Padding(
-              padding: EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context, 'No.');
-                  },
-                  child: Text('No')),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}*/
 
 class ScreenList extends StatefulWidget {
   @override
@@ -178,9 +137,16 @@ class ScreenListState extends State<ScreenList> {
         body: ListView.builder(
           itemCount: books.length,
           itemBuilder: (context, index) {
+            if (index.isOdd) {
+              return new Divider();
+            }
+
             return ListTile(
-              title: Text(books[index]),
-            );
+                title: Text(books[index]),
+                onTap: () {
+                  Navigator.pop(
+                      context, books[index]); //Tap a list will pop back
+                });
           },
         ));
   }
