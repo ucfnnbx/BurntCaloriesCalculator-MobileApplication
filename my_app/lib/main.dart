@@ -105,6 +105,11 @@ class AddPageState extends State<AddPage> {
     String result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => ScreenList()));
     print(result);
+
+    ScaffoldMessenger.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text('$result has been chosen!')));
+    // After list returns a result, hide any previous snackbars and show the new result.
   }
 }
 
