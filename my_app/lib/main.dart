@@ -45,6 +45,7 @@ class AddPage extends StatefulWidget {
 
 class AddPageState extends State<AddPage> {
   late String text;
+  String result = 's'; //initialize
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +60,6 @@ class AddPageState extends State<AddPage> {
               //button 1: search API list
               onPressed: () {
                 navigateAndDisplaySelection(context);
-                //print('Good');
               },
               icon: Icon(
                 Icons.search,
@@ -90,7 +90,9 @@ class AddPageState extends State<AddPage> {
             ),
             ElevatedButton.icon(
               //button 2: receive API response
-              onPressed: () {},
+              onPressed: () {
+                getCalories();
+              },
               icon: Icon(
                 Icons.calculate,
                 size: 24.0,
@@ -101,9 +103,27 @@ class AddPageState extends State<AddPage> {
         )));
   }
 
+  Future<void> getCalories() async {
+    String resultf = result[0];
+    final url = Uri.parse(
+        'https://api.api-ninjas.com/v1/caloriesburned?activity=$resultf&duration=$text');
+    final response = await http.get(url,
+        headers: {"X-Api-Key": 'uRjfZZXLL9spD046C1KZxI30ZaI3CFESdPORSuRp'});
+    if (response.statusCode == 200) {
+      final jsonResponse = convert.jsonDecode(response.body);
+      int calories = jsonResponse[0]['total_calories'];
+      print(calories);
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+    }
+  }
+
   void navigateAndDisplaySelection(BuildContext context) async {
+    //connect API to get list to select
     String result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => ScreenList()));
+    if (!mounted) return;
+
     print(result);
 
     ScaffoldMessenger.of(context)
