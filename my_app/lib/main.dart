@@ -113,6 +113,20 @@ class AddPageState extends State<AddPage> {
       final jsonResponse = convert.jsonDecode(response.body);
       int calories = jsonResponse[0]['total_calories'];
       print(calories);
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+                title: Text("Calculation Finished"),
+                content: Text("Your burned calories is $calories cal."),
+                actions: [
+                  TextButton(
+                      child: Text("OK"),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      })
+                ]);
+          });
     } else {
       print('Request failed with status: ${response.statusCode}.');
     }
@@ -129,7 +143,7 @@ class AddPageState extends State<AddPage> {
 
     ScaffoldMessenger.of(context)
       ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text('$result has been chosen!')));
+      ..showSnackBar(SnackBar(content: Text('$result is chosen!')));
     // After list returns a result, hide any previous snackbars and show the new result.
   }
 }
