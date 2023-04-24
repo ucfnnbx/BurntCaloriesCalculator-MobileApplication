@@ -99,6 +99,17 @@ class AddPageState extends State<AddPage> {
               ),
               label: Text('Click to calculate'), // <-- Text
             ),
+            Expanded(
+                child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.save,
+                        size: 24.0,
+                      ),
+                      label: Text('Save'), // <-- Text
+                    )))
           ],
         )));
   }
@@ -118,7 +129,7 @@ class AddPageState extends State<AddPage> {
           builder: (BuildContext context) {
             return AlertDialog(
                 title: Text("Calculation Finished"),
-                content: Text("Your burned calories is $calories cal."),
+                content: Text("Your burned calories are $calories cal."),
                 actions: [
                   TextButton(
                       child: Text("OK"),
