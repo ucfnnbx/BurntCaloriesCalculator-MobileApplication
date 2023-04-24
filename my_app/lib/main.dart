@@ -45,7 +45,7 @@ class AddPage extends StatefulWidget {
 
 class AddPageState extends State<AddPage> {
   late String text;
-  String result = 's'; //initialize
+  String resultt = 's'; //initialize?
 
   @override
   Widget build(BuildContext context) {
@@ -104,9 +104,9 @@ class AddPageState extends State<AddPage> {
   }
 
   Future<void> getCalories() async {
-    String resultf = result[0];
+    print(resultt);
     final url = Uri.parse(
-        'https://api.api-ninjas.com/v1/caloriesburned?activity=$resultf&duration=$text');
+        'https://api.api-ninjas.com/v1/caloriesburned?activity=$resultt&duration=$text');
     final response = await http.get(url,
         headers: {"X-Api-Key": 'uRjfZZXLL9spD046C1KZxI30ZaI3CFESdPORSuRp'});
     if (response.statusCode == 200) {
@@ -124,6 +124,7 @@ class AddPageState extends State<AddPage> {
         context, MaterialPageRoute(builder: (context) => ScreenList()));
     if (!mounted) return;
 
+    resultt = result[0];
     print(result);
 
     ScaffoldMessenger.of(context)
