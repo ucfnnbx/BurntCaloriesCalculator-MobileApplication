@@ -38,7 +38,7 @@ After returning to HomePage, select the date you just recorded, it will pop up t
 
 <p align="center">
 <img
-src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_6.png" width="250">
+src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_7.png" width="250">
 </p>
 
 Use this section to show us what your Mobile App is about.   Include a Screenshot to the App, link to the various frameworks you've used. Include your presentation video here that shows off your Mobile App.   Emojis are also fun to include 📱 😄
