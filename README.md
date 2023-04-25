@@ -42,7 +42,7 @@ src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots
 </p>
 
 Watch the video here:
-[![Watch the video](https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/video.mp4)
+[![Watch the video](https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_7.png)](https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/video.mp4)
 
 Use this section to show us what your Mobile App is about.   Include a Screenshot to the App, link to the various frameworks you've used. Include your presentation video here that shows off your Mobile App.   Emojis are also fun to include 📱 😄
 
