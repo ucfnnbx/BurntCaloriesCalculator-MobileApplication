@@ -11,6 +11,18 @@ This section has a short introduction to what the application is
 <img
 src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_1.png" width="300">
 </p>
+At the HomePage, to start with select a date and click the top-right add button. It will proceed to the record page.
+
+<p align="center">
+<img
+src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_2.png" width="300">
+</p>
+At this page, you will need to select you exercise type from a list, and enter exercise time. Then click calculate to show the burned calories.
+
+<p align="center">
+<img
+src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_3.png" width="300">
+</p>
 
 Use this section to show us what your Mobile App is about.   Include a Screenshot to the App, link to the various frameworks you've used. Include your presentation video here that shows off your Mobile App.   Emojis are also fun to include 📱 😄
 
