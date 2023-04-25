@@ -1,5 +1,6 @@
-# REPLACE WITH YOUR APP NAME
+# Burn It Up
 
+This is a mobile app that records excercises and calculate burned calories for users on a daily basis. Users can also access their exercise data each day by clicking on a day in the calendar.
 This is the Final assessment template for CASA0014 - Please use this template and edit the relevant sections to personalise.
 This section has a short introduction to what the application is
 
