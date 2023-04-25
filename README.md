@@ -41,8 +41,8 @@ After returning to HomePage, select the date you just recorded, it will pop up t
 src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_7.png" width="250">
 </p>
 
-Watch the video here:
-[![Watch the video](https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_7.png)](https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/video.mp4)
+Watch the demo video here:
+- https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/video.mp4
 
 Use this section to show us what your Mobile App is about.   Include a Screenshot to the App, link to the various frameworks you've used. Include your presentation video here that shows off your Mobile App.   Emojis are also fun to include 📱 😄
 
@@ -60,7 +60,7 @@ Request caloriesburned URL example:
 -https://api.api-ninjas.com/v1/caloriesburned?activity=skiing&duration=60
 
 ## Packages Used
-
+([https://pub.dev/packages/table_calendar])
 
 ## Include A Section That Tells Developers How To Install The App
 
