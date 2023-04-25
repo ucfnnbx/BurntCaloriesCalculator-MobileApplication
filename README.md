@@ -6,7 +6,7 @@ This section has a short introduction to what the application is
 
 ## What it looks like?
 
-![](https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_1.png | width=150)
+
 <p align="center">
 <img
 src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_1.png" width="400">
