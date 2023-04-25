@@ -47,11 +47,11 @@ Watch the demo video here:
 - path_provider 2.0.14 https://pub.dev/packages/path_provider
   A Flutter plugin for finding commonly used locations on the filesystem. Supports Android, iOS, Linux, macOS and Windows.
   
-- Access API link here:
+- API link:
   https://api-ninjas.com/api/caloriesburned
-- Request activities URL: 
+- API Request activities URL: 
   https://api-ninjas.com/api/caloriesburned
-- Request caloriesburned URL example:
+- API request caloriesburned URL example:
   https://api.api-ninjas.com/v1/caloriesburned?activity=skiing&duration=60
 
 ## How To Install The App
