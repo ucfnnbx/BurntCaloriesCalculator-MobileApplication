@@ -60,7 +60,10 @@ Request caloriesburned URL example:
 -https://api.api-ninjas.com/v1/caloriesburned?activity=skiing&duration=60
 
 ## Packages Used
-([https://pub.dev/packages/table_calendar])
+table_calendar 3.0.9 https://pub.dev/packages/table_calendar
+http 0.12.0+1 https://pub.dev/packages/http
+path_provider 2.0.14 https://pub.dev/packages/path_provider
+
 
 ## Include A Section That Tells Developers How To Install The App
 
