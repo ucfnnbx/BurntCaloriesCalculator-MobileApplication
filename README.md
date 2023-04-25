@@ -48,6 +48,15 @@ Look at some other Flutter Apps online and see how they use there README File.  
 - https://github.com/miickel/flutter_particle_clock
 - https://github.com/Tarikul711/flutter-food-delivery-app-ui    
 - https://github.com/mohak1283/Instagram-Clone
+- 
+Access API link here:
+- https://api-ninjas.com/api/caloriesburned
+Request activities URL: 
+- https://api-ninjas.com/api/caloriesburned
+Request caloriesburned URL example:
+-https://api.api-ninjas.com/v1/caloriesburned?activity=skiing&duration=60
+
+## Packages Used
 
 
 ## Include A Section That Tells Developers How To Install The App
