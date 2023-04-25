@@ -1,5 +1,5 @@
 # Burn It Up
-This is a Mobile App that records exercises and calculate burned calories for users on a daily basis. Users can also access their exercise data each day by clicking on a day in the calendar. The App requests calories value from an API according to user inputs (exercise type and time duration). 
+This is a Mobile App that records exercises and calculates burned calories for users on a daily basis. Users can also access their exercise data each day by clicking on a day in the calendar. The App requests calories value from an API according to user inputs (exercise type and time duration). 
 
 ## What it looks like?
 <p align="center">
@@ -49,7 +49,7 @@ Watch the demo video here:
   
 - API link:
   https://api-ninjas.com/api/caloriesburned
-- API Request activities URL: 
+- API request activities URL: 
   https://api-ninjas.com/api/caloriesburned
 - API request caloriesburned URL example:
   https://api.api-ninjas.com/v1/caloriesburned?activity=skiing&duration=60
@@ -59,6 +59,7 @@ Watch the demo video here:
 2. Open folder with Android Studio or Visual Studio Code IDE.
 3. Get packages: From the terminal: Run flutter pub get . From VS Code: Click Get Packages located in right side of the action ribbon at the top of pubspec.yaml indicated by the Download icon. From Android Studio/IntelliJ: Click Pub get in the action ribbon at the top of pubspec.yaml.
 4. For connection to API please generate an API key on https://api-ninjas.com/
+5. Build the project with Android emulator, ios simulator or physical device connected
 
 ##  Contact Details
 Email: 915652009@qq.com
