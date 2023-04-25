@@ -9,7 +9,7 @@ This section has a short introduction to what the application is
 
 <p align="center">
 <img
-src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_1.png" width="100">
+src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_1.png" width="200">
 </p>
 
 At the HomePage, to start select a date and click the top-right add button. It will proceed to the record page.
