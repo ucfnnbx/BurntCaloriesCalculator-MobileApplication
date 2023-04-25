@@ -5,8 +5,8 @@ import 'package:http/http.dart' as http;
 import 'dart:io';
 
 import 'dart:convert';
-import 'dart:io';
 import 'dart:async';
+//import 'home.dart';
 
 import 'globals.dart' as globals;
 import 'package:path_provider/path_provider.dart';
@@ -137,6 +137,7 @@ class AddPageState extends State<AddPage> {
                       onPressed: () {
                         saveRecord(
                             globals.dayy, globals.gExercise, globals.gCalories);
+                        Navigator.pop(context);
                       },
                       icon: Icon(
                         Icons.save,
