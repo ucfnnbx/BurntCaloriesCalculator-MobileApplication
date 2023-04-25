@@ -8,7 +8,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 
+import 'globals.dart' as globals;
+import 'package:path_provider/path_provider.dart';
+
 //import '../utils.dart';
+
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,6 +63,9 @@ class AddPageState extends State<AddPage> {
         body: Center(
             child: Column(
           children: [
+            SizedBox(
+              height: 20, // <-- SEE HERE
+            ),
             ElevatedButton.icon(
               //button 1: search API list
               onPressed: () {
@@ -65,7 +75,10 @@ class AddPageState extends State<AddPage> {
                 Icons.search,
                 size: 24.0,
               ),
-              label: Text('Choose a type'), // <-- Text
+              label: Text(
+                "Choose a type",
+                style: TextStyle(fontSize: 18.0),
+              ),
             ),
             SizedBox(
               height: 20, // <-- SEE HERE
@@ -81,6 +94,7 @@ class AddPageState extends State<AddPage> {
                   onSubmitted: (String value) {
                     setState(() {
                       text = value;
+                      globals.gText = value;
                       print(text);
                     });
                   }),
@@ -97,21 +111,82 @@ class AddPageState extends State<AddPage> {
                 Icons.calculate,
                 size: 24.0,
               ),
-              label: Text('Click to calculate'), // <-- Text
+              label: Text(
+                "Click to calculate",
+                style: TextStyle(fontSize: 18.0),
+              ),
+            ),
+            SizedBox(
+              height: 70, // <-- SEE HERE
+            ),
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                border: Border.all(width: 5, color: Colors.red),
+                borderRadius: BorderRadius.all(Radius.circular(50)),
+              ),
+              child: const Text(
+                "                               Reminder\nPlease follow the sequence:\n1. Choose a type\n2. Enter exercise time in mins\n3. Click to calculate calories burned\n4. Save the record and go back to home page",
+                style: TextStyle(fontSize: 18.0),
+              ),
             ),
             Expanded(
                 child: Align(
                     alignment: Alignment.bottomCenter,
                     child: ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        saveRecord(
+                            globals.dayy, globals.gExercise, globals.gCalories);
+                      },
                       icon: Icon(
                         Icons.save,
                         size: 24.0,
                       ),
-                      label: Text('Save'), // <-- Text
-                    )))
+                      label: Text(
+                        "Save",
+                        style: TextStyle(fontSize: 30.0),
+                      ), // <-- Text
+                    ))),
+            SizedBox(
+              height: 20, // <-- SEE HERE
+            ),
           ],
         )));
+  }
+
+  void saveRecord(String day, String exercise, int calo) async {
+    List<Player> players = [];
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String appDocPath = appDocDir.path;
+
+    String filePath = '${appDocDir.path}/record.json';
+    print(filePath);
+
+    //  new File(filePath).readAsString().then((String contents) {
+    //    print(contents);
+    //  });
+
+    final File file = File(filePath); //load the json file
+    globals.gFile = file;
+    Player newPlayer = Player(
+        //add a new item to data list
+        day,
+        exercise,
+        calo);
+
+    players.add(newPlayer);
+    print(players.length);
+
+    players //convert list data  to json
+        .map(
+          (player) => player.toJson(),
+        )
+        .toList();
+
+    file.writeAsStringSync(
+      json.encode(players),
+    );
+    //     mode: FileMode.append); //write (the whole list) to json file
   }
 
   Future<void> getCalories() async {
@@ -124,12 +199,13 @@ class AddPageState extends State<AddPage> {
       final jsonResponse = convert.jsonDecode(response.body);
       int calories = jsonResponse[0]['total_calories'];
       print(calories);
+      globals.gCalories = calories;
       showDialog(
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
                 title: Text("Calculation Finished"),
-                content: Text("Your burned calories are $calories cal."),
+                content: Text("Your burned calories are $calories kcal."),
                 actions: [
                   TextButton(
                       child: Text("OK"),
@@ -148,7 +224,7 @@ class AddPageState extends State<AddPage> {
     String result = await Navigator.push(
         context, MaterialPageRoute(builder: (context) => ScreenList()));
     if (!mounted) return;
-
+    globals.gExercise = result;
     resultt = result[0];
     print(result);
 
@@ -211,6 +287,7 @@ class ScreenListState extends State<ScreenList> {
     });
     if (response.statusCode == 200) {
       final jsonResponse = convert.jsonDecode(response.body);
+      //  print(jsonResponse);
       final activities = jsonResponse['activities'];
       for (int i = 0; i < activities.length; i++) {
         try {
@@ -240,7 +317,27 @@ class TableBasicsExampleState extends State<TableBasicsExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('TableCalendar - Basics'),
+        title: Text('Burn It Up'),
+        leading: IconButton(
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: Text("Instructions"),
+                      content: Text(
+                          "To start with, please select a date and press '+' to record a new exercise.\n\nWhen finished recording, click on the date will show you the record."),
+                      actions: [
+                        TextButton(
+                            child: Text("OK"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            })
+                      ]);
+                });
+          },
+          icon: Icon(Icons.help),
+        ),
         actions: <Widget>[
           // Add 3 lines from here...
           new IconButton(
@@ -263,6 +360,7 @@ class TableBasicsExampleState extends State<TableBasicsExample> {
 
           // Using `isSameDay` is recommended to disregard
           // the time-part of compared DateTime objects.
+          // globals.dayy = "$day";
           return isSameDay(_selectedDay, day);
         },
         onDaySelected: (selectedDay, focusedDay) {
@@ -271,6 +369,10 @@ class TableBasicsExampleState extends State<TableBasicsExample> {
             setState(() {
               _selectedDay = selectedDay;
               _focusedDay = focusedDay;
+              //   print(selectedDay);
+              globals.dayy = "$selectedDay";
+              // print(globals.dayy);
+              readRecord(globals.gFile);
             });
           }
         },
@@ -290,35 +392,175 @@ class TableBasicsExampleState extends State<TableBasicsExample> {
     );
   }
 
-/*  void addNew() {
-    Navigator.of(context).push(
-      new MaterialPageRoute<void>(
-        // Add 20 lines from here...
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-            (WordPair pair) {
-              return new ListTile(
-                title: new Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
+  Future<void> readRecord(File file) async {
+    String contents = await file.readAsString();
+    // print('$contents');
+    var jsonResponse = jsonDecode(contents);
+    print(jsonResponse);
 
-          return new Scaffold(
-            // Add 6 lines from here...
-            appBar: new AppBar(
-              title: const Text('Saved Suggestions'),
-            ),
-            body: new ListView(children: divided),
-          ); // ... to here.
-        },
-      ), // ... to here.
-    );
-  }*/
+    for (var p in jsonResponse) {
+      if (p['date'] == globals.dayy) {
+        String k = p['date'];
+        int i = globals.gCalories;
+        String j = globals.gExercise;
+        String h = globals.gText;
+
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                  title: Text("On $k:"),
+                  content: Text(
+                      "Your burned $i kcal by doing $j for $h minutes. Well done!"),
+                  actions: [
+                    TextButton(
+                        child: Text("OK"),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        })
+                  ]);
+            });
+        //print(p['date']);
+      }
+      //  Player player = Player(p['date'], p['exercise'], p['calories']);
+      //   print(p['date']); //, p['exercise'], p['calories']);
+      //players.add(player);
+    }
+  }
 }
+
+class Player {
+  late String date;
+  late String exercise;
+  late int calories;
+
+  Player(
+    this.date,
+    this.exercise,
+    this.calories,
+  );
+
+  Player.fromJson(Map<String, dynamic> json) {
+    date = json['date'];
+    exercise = json['exercise'];
+    calories = json['calories'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['date'] = this.date;
+    data['exercise'] = this.exercise;
+    data['calories'] = this.calories;
+
+    return data;
+  }
+}
+
+/*late UsersPodo _usersPodo; // Users object to store users from json
+
+// A function that converts a response body into a UsersPodo
+UsersPodo parseJson(String responseBody) {
+  final parsed = json.decode(responseBody);
+  return UsersPodo.fromJson(parsed);
+}
+
+class Demo extends StatefulWidget {
+  @override
+  _Demo createState() => _Demo();
+}
+
+class _Demo extends State<Demo> {
+  final String localJson = '''
+  {
+    "users": [
+        {
+            "id": 1,
+            "username": "steve",
+            "password": "captainamerica"
+        }
+    ]
+}'''; // local json string
+
+  Future<UsersPodo> fetchJSON() async {
+    return compute(parseJson, localJson);
+  }
+
+  Widget body() {
+    return FutureBuilder<UsersPodo>(
+      future: fetchJSON(),
+      builder: (context, snapshot) {
+        return snapshot.hasError
+            ? Center(child: Text(snapshot.error.toString()))
+            : snapshot.hasData
+                ? _buildBody(usersList: snapshot.data)
+                : Center(child: Text("Loading"));
+      },
+    );
+  }
+
+  Widget _buildBody({UsersPodo usersList}) {
+    _usersPodo = usersList;
+
+    _usersPodo.users.add(new Users(
+        id: 1,
+        username: "omishah",
+        password: "somepassword")); // add new user to users array////////////////////////////////////
+
+    return Text(
+        _usersPodo.users[1].toJson().toString()); // just for the demo output
+
+    // use _usersPodo.toJson() to convert the users object to json
+  }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor: Color(0xfff3f3f3),
+        appBar: AppBar(backgroundColor: Colors.red[900], title: Text("DEMO")),
+        body: body());
+  }
+}
+
+// PODO Object class for the JSON mapping
+class UsersPodo {
+  late List<Users> users;
+  UsersPodo({required this.users});
+
+  UsersPodo.fromJson(Map<String, dynamic> json) {
+    if (json['users'] != null) {
+      users = new List.filled<Users>();
+      json['users'].forEach((v) {
+        users.add(new Users.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.users != null) {
+      data['users'] = this.users.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Users {
+  late int id;
+  late String username;
+  late String password;
+
+  Users({required this.id, required this.username, required this.password});
+
+  Users.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    username = json['username'];
+    password = json['password'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['username'] = this.username;
+    data['password'] = this.password;
+    return data;
+  }
+}*/
