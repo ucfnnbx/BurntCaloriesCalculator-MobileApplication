@@ -14,7 +14,7 @@ At the HomePage, to start select a date and click the top-right add button. It w
 src="https://github.com/ucfnnbx/casa0015-mobile-assessment/blob/main/screenshots/Screenshot_2.png" width="250">
 </p>
 
-At this page, you will need to select your exercise type from a list, and enter exercise time. Then click calculate to show the burned calories.
+At this page, you will need to select your exercise type from a scrolling list, and enter exercise time. Then click calculate to show the burned calories.
 
 <p align="center">
 <img
